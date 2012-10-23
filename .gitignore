@@ -1,0 +1,14 @@
+*.apk
+*.ap_
+*.dex
+*.class
+bin/
+gen/
+local.properties
+*.log
+.classpath
+project.properties
+
+obj/*
+libs/*
+.externalToolBuilders/*
