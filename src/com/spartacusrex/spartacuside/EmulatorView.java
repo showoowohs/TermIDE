@@ -40,7 +40,6 @@ import android.view.GestureDetector;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup.LayoutParams;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.CompletionInfo;
@@ -50,7 +49,6 @@ import android.view.inputmethod.ExtractedText;
 import android.view.inputmethod.ExtractedTextRequest;
 import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.LinearLayout;
 
 import com.spartacusrex.spartacuside.model.TextRenderer;
 import com.spartacusrex.spartacuside.model.UpdateCallback;
@@ -617,28 +615,31 @@ public class EmulatorView extends View implements GestureDetector.OnGestureListe
         mBackgroundPaint = new Paint();
         mTopRow = 0;
         mLeftColumn = 0;
-        mGestureDetector = new GestureDetector(this);
+        //add 1120 del GestureDetector
+//        mGestureDetector = new GestureDetector(this);
         // mGestureDetector.setIsLongpressEnabled(false);
-        mGestureDetector.setOnDoubleTapListener(new GestureDetector.OnDoubleTapListener() {
-            public boolean onSingleTapConfirmed(MotionEvent arg0) {
-               return true;
-            }
-
-            public boolean onDoubleTap(MotionEvent arg0) {
-                //Toggle the Soft Keyboard..
-                InputMethodManager imm = (InputMethodManager)getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,0);
-                return true;
-            }
-
-            public boolean onDoubleTapEvent(MotionEvent arg0) {
-                return true;
-            }
-        });
+        //add 1120 keyboard del
+//        mGestureDetector.setOnDoubleTapListener(new GestureDetector.OnDoubleTapListener() {
+//            public boolean onSingleTapConfirmed(MotionEvent arg0) {
+//               return true;
+//            }
+//
+//            public boolean onDoubleTap(MotionEvent arg0) {
+//                //Toggle the Soft Keyboard..
+//                InputMethodManager imm = (InputMethodManager)getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+//                imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,0);
+//                return true;
+//            }
+//
+//            public boolean onDoubleTapEvent(MotionEvent arg0) {
+//                return true;
+//            }
+//        });
 
         setVerticalScrollBarEnabled(true);
         setFocusable(true);
-        setFocusableInTouchMode(true);
+        //add 1120 del µJÂI
+        //setFocusableInTouchMode(true);
 
         initialize(session, viewFlipper);
     }
@@ -737,7 +738,6 @@ public class EmulatorView extends View implements GestureDetector.OnGestureListe
     // Begin GestureDetector.OnGestureListener methods
 
     public boolean onSingleTapUp(MotionEvent e) {
-    	Log.d("onSingleTapUp", "onSingleTapUp");
         return true;
     }
 
@@ -747,7 +747,6 @@ public class EmulatorView extends View implements GestureDetector.OnGestureListe
 
     public boolean onScroll(MotionEvent e1, MotionEvent e2,
             float distanceX, float distanceY) {
-    	Log.d("onScroll", "onScroll");
         distanceY += mScrollRemainder;
         int deltaRows = (int) (distanceY / mCharacterHeight);
         mScrollRemainder = distanceY - deltaRows * mCharacterHeight;
@@ -755,7 +754,7 @@ public class EmulatorView extends View implements GestureDetector.OnGestureListe
             Math.min(0, Math.max(-(mTranscriptScreen
                     .getActiveTranscriptRows()), mTopRow + deltaRows));
         invalidate();
-
+        Log.i("aaa", "aaaaa");
         return true;
    }
 
@@ -779,7 +778,6 @@ public class EmulatorView extends View implements GestureDetector.OnGestureListe
 
     public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
             float velocityY) {
-    	Log.d("onFling", "onFling");
         if (Math.abs(velocityX) > Math.abs(velocityY)) {
             // Assume user wanted side to side movement
             if (velocityX > 0) {
@@ -788,28 +786,12 @@ public class EmulatorView extends View implements GestureDetector.OnGestureListe
 
                 // Left to right swipe -- previous window
                 mViewFlipper.showPrevious();
-                this.setVisibility(View.VISIBLE);
             } else {
                 mViewFlipper.setOutAnimation(mAnimLeftOut);
                 mViewFlipper.setInAnimation(mAnimRightIn);
 
                 // Right to left swipe -- next window
                 mViewFlipper.showNext();
-                //add 1022
-//                this.setVisibility(View.GONE);
-//                Term.lay1_X_text.setVisibility(View.GONE);
-                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                	    LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT);
-				params.weight = 0.0f;
-				Term.UI_Head.setLayoutParams(params);
-				Term.lay1.setLayoutParams(params);
-				Term.lay1_X.setLayoutParams(params);
-				Term.lay1_X.setAnimation(mAnimLeftOut);
-				Term.lay1_X.setAnimation(mAnimRightIn);
-				Log.w("mAnimLeftOut", "mAnimLeftOut");
-				// Term.mViewFlipper.setLayoutParams(params);
-				// params.weight = 1.0f;
-				// Term.lay1.setLayoutParams(params);
             }
         } else {
             // TODO: add animation man's (non animated) fling
@@ -824,19 +806,19 @@ public class EmulatorView extends View implements GestureDetector.OnGestureListe
 
     public boolean onDown(MotionEvent e) {
         mScrollRemainder = 0.0f;
-        Log.d("onDown", "onDown");
         return true;
     }
 
     // End GestureDetector.OnGestureListener methods
 
-    @Override public boolean onTouchEvent(MotionEvent ev) {
-        if (mIsSelectingText) {
-            return onTouchEventWhileSelectingText(ev);
-        } else {
-            return mGestureDetector.onTouchEvent(ev);
-        }
-    }
+    //add 1120 del TouchEvent
+//    @Override public boolean onTouchEvent(MotionEvent ev) {
+//        if (mIsSelectingText) {
+//            return onTouchEventWhileSelectingText(ev);
+//        } else {
+//            return mGestureDetector.onTouchEvent(ev);
+//        }
+//    }
 
     private boolean onTouchEventWhileSelectingText(MotionEvent ev) {
         int action = ev.getAction();

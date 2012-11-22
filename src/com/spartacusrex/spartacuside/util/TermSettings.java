@@ -89,7 +89,8 @@ public class TermSettings {
 
     public void readPrefs(SharedPreferences prefs) {
         mPrefs = prefs;
-        //add 1022 statusBar off
+        
+        //add Ãö³¬status
         mStatusBar = readIntPref(STATUSBAR_KEY, mStatusBar, 0);
         // mCursorStyle = readIntPref(CURSORSTYLE_KEY, mCursorStyle, 2);
         // mCursorBlink = readIntPref(CURSORBLINK_KEY, mCursorBlink, 1);

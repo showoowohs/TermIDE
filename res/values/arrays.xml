@@ -62,8 +62,7 @@
 
 <!--    Jackpal Terminal Stuff..-->
     <string-array name="entries_statusbar_preference">
-<!--         add 1022 -->
-<!--         <item>Show status bar</item> -->
+        <item>Show status bar</item>
         <item>Hide status bar</item>
     </string-array>
 
