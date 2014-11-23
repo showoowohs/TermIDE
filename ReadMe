@@ -1,0 +1,1 @@
+1. 剛來到i-mobile的工作, 當時再研究touch, 此程式是修改網路上的open source(android terminal)來的, 主要是透過jni方式去跟底層的/dev/要資料, 再將資料顯示於android UI上(由於當時android platform is 2.3, machina Responses Not good,是個失敗品)
